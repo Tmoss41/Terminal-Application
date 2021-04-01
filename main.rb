@@ -25,17 +25,11 @@ user = User.new(name, balance)
 user.info
 puts "At the Moss Casino, we have a variety of areas that you can gamble at"
 display_menu()
-input = gets.to_i
-case input
-when 1
-when 2
-when 3
-when 4
-when 5
-when 6
-    puts "Have a Wonderful Evening #{name}"
-    open('scoreboard.txt', 'a') {|f| f.puts "#{name}, #{balance}"}
-    exit(true)
-end
+playing = true
+input_loop(playing, name, balance)
+
+
+
+
 
 

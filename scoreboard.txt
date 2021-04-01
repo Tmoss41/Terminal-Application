@@ -1,1 +1,2 @@
-Timothy, 500
+Tim, Current Balance = $500
+Ben, Current Balance = $500
