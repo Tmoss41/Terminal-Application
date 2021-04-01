@@ -1,6 +1,7 @@
 require 'colorize'
 require_relative './modules/menu'
 include Menu
+require_relative './classes/user'
 
 
 puts "Welcome to the Moss Casino, have you been here before?" # Accepts either yes or no
@@ -15,13 +16,26 @@ age = gets.to_i
 
 case age < 18
 when true
-    puts "You are a bit too young, better for you to leave!"
-    exit(true)
+    
 end
 puts "Good Evening #{name}, since this is your first time, heres some money to get you started"
 balance = 500
 puts "Balance : $#{balance}"
+user = User.new(name, balance)
+user.info
 puts "At the Moss Casino, we have a variety of areas that you can gamble at"
 display_menu()
+input = gets.to_i
+case input
+when 1
+when 2
+when 3
+when 4
+when 5
+when 6
+    puts "Have a Wonderful Evening #{name}"
+    open('scoreboard.txt', 'a') {|f| f.puts "#{name}, #{balance}"}
+    exit(true)
+end
 
 

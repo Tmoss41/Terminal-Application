@@ -13,5 +13,6 @@ def display_menu
     puts "4. Poker"
     puts "5. Horse Racing"
     puts "6. Quit"
+    puts "Please select what you would like to do (Enter a number or text of what you would like to do i.e 6 or Quit"
 end
 end
