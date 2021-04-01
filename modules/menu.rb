@@ -1,3 +1,4 @@
+require_relative '../Classes/blackjack'
 class InsufficientFunds < StandardError
     def initialize
         super("Not Enough Funds")
@@ -21,6 +22,8 @@ def input_loop(playing, name, balance)
     while playing == true
         case input
         when 1
+            testing = Blackjack.new(balance, name)
+            testing.menu
         when 2
         when 3
         when 4
