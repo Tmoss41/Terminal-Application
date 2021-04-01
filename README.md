@@ -1,1 +1,1 @@
-# Terminl-Application
+# Terminal-Application
