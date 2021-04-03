@@ -26,10 +26,5 @@ user.info
 puts "At the Moss Casino, we have a variety of areas that you can gamble at"
 display_menu()#Displays menu from the Menu Module
 playing = true
-input_loop(playing, name, balance) #Loops through the Menu and input prompts
-
-
-
-
-
+input_loop(playing, name, balance) #Loops through the Menu and input pormpt `   `
 
