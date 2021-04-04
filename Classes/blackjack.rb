@@ -1,8 +1,7 @@
-require_relative '../modules/menu/'
+require_relative '../modules/menu'
 class Blackjack
-    # include Menu
+    # extend Menu
     @tally = 0
-    @totalbet
     def initialize(balance, name)
         @name = name
         @balance = balance
@@ -21,8 +20,8 @@ class Blackjack
         when 3
             back = gets.chomp #Note Currently major loop issue, no way to get back to main menu from Blackjack Page
             if back == "back"
-                display_menu()
-                input_loop(playing, name, balance)
+            display_menu()
+            input_loop(true, name, balance)
             end
         end
     end
@@ -43,27 +42,32 @@ class Blackjack
             end
     end 
     def round_of_blackjack
+        
         cards = [1,2,3,4,5,6,7,8,9,10,10,10,10]
         deck = {spade: cards, hearts: cards, spades: cards, clubs: cards}
         hand = []
         puts "How much would you like to gamble?"
         gamble = gets.to_i
-        playing = "y"
-        while playing == "y"
+        blackjack_playing = "y"
+        while blackjack_playing == "y"
         hand.push(cards.sample)
         hand.push(cards.sample)
         puts "You look down and your cards are #{hand[0]} of #{deck.keys.sample} and #{hand[1]} of #{deck.keys.sample} with a total of #{hand.sum}"
         puts "Do you want to hit or stand?"
         hit_or_stand = "hit"
         while hit_or_stand == "hit"
-        hit_or_stand = gets.chomp.downcase
-        case hit_or_stand
-        when "hit"
-            hand.push(cards.sample)
-            puts "The dealer hands you another card, it is a #{hand[2]} of #{deck.keys.sample}, and your new total is #{hand.sum}"
-        when "stand"
-            puts "You have chosen to stand"
+            hit_or_stand = gets.chomp.downcase
+            case hit_or_stand
+            when "hit"
+                hand.push(cards.sample)
+                puts "The dealer hands you another card, it is a #{hand[2]} of #{deck.keys.sample}, and your new total is #{hand.sum}"
+            when "stand"
+                puts "You have chosen to stand"
+            end
         end
+        if hand.sum > 21
+            puts "Bust"
+            @balance = @balance - gamble
         end
         iterations = 0
         house = 0
@@ -74,15 +78,16 @@ class Blackjack
         end
         puts "Your score is #{hand.sum}"
         puts "House score is #{house}"
-        if hand.sum > house and hand.sum < 21 or house > 21
+        if hand.sum > house and hand.sum < 21 
+            puts "You win!"
+            @balance = @balance + gamble
+        elsif house > 21
             puts "You win!"
             @balance = @balance + gamble
         elsif hand.sum == 21
             puts "Blackjack, you win!"
             @balance = @balance + (gamble * 2)
-        elsif hand.sum > 21
-            puts "Bust"
-            @balance = @balance - gamble
+        
         else
             puts "House wins"
             @balance = @balance - gamble
@@ -90,7 +95,7 @@ class Blackjack
         puts "You have $#{@balance}"
         puts "Play again? Y/N"
         hand.clear
-        playing = gets.chomp.downcase
+        blackjack_playing = gets.chomp.downcase
     end
     puts "Returning to Game Menu"
     menu()
