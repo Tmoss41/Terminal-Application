@@ -35,7 +35,7 @@ module Menu
             when 4
             when 5
             when 6
-                score_display = File.read('scoreboard.txt')
+                score_display = File.read('./scoreboard.rb')
                 puts score_display
                 puts "To Leave, please enter back"
                 back = gets.chomp
@@ -49,7 +49,8 @@ module Menu
                 if save_progress == "yes"
                     puts "Excellent choice #{name} we have added your details to our records"
                     puts "#{name}, Current Balance = $#{balance}"
-                    open('scoreboard.txt', 'a') {|f| f.puts "#{name}, Current Balance = $#{balance}"}
+                    open('./scoreboard.rb', 'a') {|f| 
+                        f.puts "@#{name.downcase} = {name: '#{name}', balance: #{balance}}"}
                     exit(true)
                 else
                     puts "No worries #{name}, we will not save your information and balance"
