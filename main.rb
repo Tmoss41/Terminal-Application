@@ -23,7 +23,6 @@ when "no"
     name = gets.chomp
     puts "Hello #{name}, how old are you?"
     age = gets.to_i
-
     case age < 18
     when true
         puts "You are a bit too young for this place, goodbye"

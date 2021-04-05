@@ -18,11 +18,8 @@ class Blackjack
         when 2
             rules()
         when 3
-            back = gets.chomp #Note Currently major loop issue, no way to get back to main menu from Blackjack Page
-            if back == "back"
             display_menu()
-            input_loop(true, name, balance)
-            end
+            input_loop(true, @name, @balance)
         end
     end
     def rules
@@ -68,6 +65,7 @@ class Blackjack
         if hand.sum > 21
             puts "Bust"
             @balance = @balance - gamble
+            
         end
         iterations = 0
         house = 0

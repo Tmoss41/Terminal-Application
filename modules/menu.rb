@@ -1,5 +1,6 @@
 require_relative '../classes/blackjack'
 require_relative '../classes/slots'
+require_relative '../classes/horses'
 # class InsufficientFunds < StandardError
 #     def initialize
 #         super("Not Enough Funds")
@@ -26,14 +27,16 @@ module Menu
         while playing == true
             case input
             when 1
-                game = Blackjack.new(balance, name)
-                game.menu
+                blackjack = Blackjack.new(balance, name)
+                blackjack.menu
             when 2
             when 3
                 slots = Slots.new(balance, name)
                 slots.menu
             when 4
             when 5
+                horse_racing = HorseRacing.new(balance, name)
+                horse_racing.menu
             when 6
                 score_display = File.read('./scoreboard.rb')
                 puts score_display
