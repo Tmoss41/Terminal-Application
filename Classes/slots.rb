@@ -1,4 +1,4 @@
-
+require 'colorize'
 # Enter how much you want to gamble
 # Spin the wheel
 # Get the result
@@ -12,15 +12,27 @@ class Slots
         @tally =+ 1
     end
     def slot_rules
+        puts "
+        ██████╗░██╗░░░██╗██╗░░░░░███████╗░██████╗
+        ██╔══██╗██║░░░██║██║░░░░░██╔════╝██╔════╝
+        ██████╔╝██║░░░██║██║░░░░░█████╗░░╚█████╗░
+        ██╔══██╗██║░░░██║██║░░░░░██╔══╝░░░╚═══██╗
+        ██║░░██║╚██████╔╝███████╗███████╗██████╔╝
+        ╚═╝░░╚═╝░╚═════╝░╚══════╝╚══════╝╚═════╝░"
         puts "To play Slots it is simple"
         puts "Enter how much you want to bet"
         puts "Spin the wheel"
         puts "See if you Win!"
+        back = gets.chomp
+            if back == "back"
+               menu()
+            end
     end
     def menu
-        puts "1. Play"
-        puts "2. Rules"
-        puts "3. Back"
+        
+        puts "1. Play".colorize(:yellow)
+        puts "2. Rules".colorize(:yellow)
+        puts "3. Back".colorize(:yellow)
         slot_input = gets.to_i
         case slot_input
         when 1
@@ -39,9 +51,7 @@ class Slots
         result = []
         puts "How much would you like to bet"
         bet = gets.to_i
-        result.push(reel.keys.sample)
-        result.push(reel.keys.sample)
-        result.push(reel.keys.sample)
+        3.times{result.push(reel.keys.sample)}
         puts "The Wheels spin and reveal...."
         puts result
         if result.count(:jackpot) >= 2
@@ -66,5 +76,7 @@ class Slots
             slots_playing = false
         end
         end
+        puts "Returning to Game Menu"
+        menu()
     end
 end

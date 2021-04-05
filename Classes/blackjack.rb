@@ -1,6 +1,4 @@
-require_relative '../modules/menu'
 class Blackjack
-    # extend Menu
     @tally = 0
     def initialize(balance, name)
         @name = name
@@ -8,9 +6,10 @@ class Blackjack
         @tally =+ 1
     end
     def menu
-        puts "1. Play"
-        puts "2. Rules"
-        puts "3. Back"
+        
+        puts "1. Play".colorize(:red)
+        puts "2. Rules".colorize(:red)
+        puts "3. Back".colorize(:red)
         black_input = gets.to_i
         case black_input
         when 1
@@ -23,6 +22,13 @@ class Blackjack
         end
     end
     def rules
+        puts "
+        ██████╗░██╗░░░██╗██╗░░░░░███████╗░██████╗
+        ██╔══██╗██║░░░██║██║░░░░░██╔════╝██╔════╝
+        ██████╔╝██║░░░██║██║░░░░░█████╗░░╚█████╗░
+        ██╔══██╗██║░░░██║██║░░░░░██╔══╝░░░╚═══██╗
+        ██║░░██║╚██████╔╝███████╗███████╗██████╔╝
+        ╚═╝░░╚═╝░╚═════╝░╚══════╝╚══════╝╚═════╝░"
         puts "To Play Blackjack, the rules are simple"
         puts "You will enter in an amount you wish to gamble, and then the dealer will give you some cards from the deck"
         puts "To win you need to have the current cards in your hand add up to 21"
@@ -65,7 +71,7 @@ class Blackjack
         if hand.sum > 21
             puts "Bust"
             @balance = @balance - gamble
-            
+
         end
         iterations = 0
         house = 0

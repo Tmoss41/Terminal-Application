@@ -4,14 +4,25 @@ class HorseRacing
         @name = name
     end
     def horse_rules
+        puts "
+        ██████╗░██╗░░░██╗██╗░░░░░███████╗░██████╗
+        ██╔══██╗██║░░░██║██║░░░░░██╔════╝██╔════╝
+        ██████╔╝██║░░░██║██║░░░░░█████╗░░╚█████╗░
+        ██╔══██╗██║░░░██║██║░░░░░██╔══╝░░░╚═══██╗
+        ██║░░██║╚██████╔╝███████╗███████╗██████╔╝
+        ╚═╝░░╚═╝░╚═════╝░╚══════╝╚══════╝╚═════╝░"
         puts "A List of Horses that are racing will be shown"
         puts "Enter the amount you wish to bet and on what Horse"
         puts "See if you win"
+        back = gets.chomp
+            if back == "back"
+               menu()
+            end
     end
     def menu
-        puts "1. Play"
-        puts "2. Rules"
-        puts "3. Back"
+        puts "1. Play".colorize(:green)
+        puts "2. Rules".colorize(:green)
+        puts "3. Back".colorize(:green)
         slot_input = gets.to_i
         case slot_input
         when 1
@@ -32,12 +43,11 @@ class HorseRacing
             horses = {PinkLightning: 1, WildCat: 2, Eclipse: 3, Delphi: 4, TheDaringDrunk: 5, CrazySisterSeline: 6, JackSparrow: 7, RunningBull: 8}
             racers = []
             selector = 0
-            while selector < 4
+            4.times{
                 racer = horses.keys.sample
                 horses.delete(racer.to_sym)
                 racers.push(racer)
-                selector += 1
-            end
+            }
             puts "The following horses are racing"
             puts racers
             puts "Who do you think will win?"
@@ -61,5 +71,7 @@ class HorseRacing
                 horse_playing = false
             end 
         end
+        puts "Returning to Game Menu"
+        menu()
     end
 end
