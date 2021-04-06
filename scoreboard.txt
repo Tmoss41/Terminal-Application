@@ -1,0 +1,8 @@
+Tim = 500
+Alex = 500
+Alex = 500
+Tim = 500
+Tim = 500
+Tim = 500
+Alex = 500
+Tim = 600

@@ -2,29 +2,24 @@ require 'colorize'
 require_relative './modules/menu'
 include Menu
 require_relative './classes/user'
-require_relative 'scoreboard'
 
-puts "
-        ███╗░░░███╗░█████╗░░██████╗░██████╗  ░█████╗░░█████╗░░██████╗██╗███╗░░██╗░█████╗░   
-        ████╗░████║██╔══██╗██╔════╝██╔════╝  ██╔══██╗██╔══██╗██╔════╝██║████╗░██║██╔══██╗
-        ██╔████╔██║██║░░██║╚█████╗░╚█████╗░  ██║░░╚═╝███████║╚█████╗░██║██╔██╗██║██║░░██║
-        ██║╚██╔╝██║██║░░██║░╚═══██╗░╚═══██╗  ██║░░██╗██╔══██║░╚═══██╗██║██║╚████║██║░░██║
-        ██║░╚═╝░██║╚█████╔╝██████╔╝██████╔╝  ╚█████╔╝██║░░██║██████╔╝██║██║░╚███║╚█████╔╝
-        ╚═╝░░░░░╚═╝░╚════╝░╚═════╝░╚═════╝░  ░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝╚═╝░░╚══╝░╚════╝░".colorize(:blue)
+main_heading()
 
 puts "Welcome to the Moss Casino, have you been here before? (Yes/No)"
 returning_user = gets.chomp.downcase
 case returning_user
 when "yes"
-    puts "Please Select your details"
-    puts File.read('./scoreboard.rb')
-    
+    require_relative 'scoreboard'
+    puts "Please Select your details, (Type in the name of the data you want"
+    puts File.read('./scoreboard.txt')
+    user_select = gets.chomp
+    user_select = @users[user_select.to_sym]
     # selection = gets.chomp.downcase
     # puts @ + "#{selection}"
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
     display_menu()#Displays menu from the Menu Module
     in_the_casino = true
-    # input_loop(in_the_casino, name, balance)
+    input_loop(in_the_casino, user_select.name, user_select.balance)
 
 when "no"
     puts "Well, then if you are new to our establishment, what would your name be?"
@@ -39,8 +34,7 @@ when "no"
     puts "Good Evening #{name}, since this is your first time, heres some money to get you started"
     balance = 500
     puts "Balance : $#{balance}"
-    user = User.new(name, balance)
-    user.info
+    user = Users.new(name, balance)
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
     display_menu()#Displays menu from the Menu Module
     in_the_casino = true

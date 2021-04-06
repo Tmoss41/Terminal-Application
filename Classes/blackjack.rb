@@ -1,4 +1,5 @@
-class Blackjack
+require_relative 'games'
+class Blackjack < Games
     @tally = 0
     def initialize(balance, name)
         @name = name
@@ -50,9 +51,10 @@ class Blackjack
         deck = {spade: cards, hearts: cards, spades: cards, clubs: cards}
         hand = []
         puts "How much would you like to gamble?"
-        gamble = gets.to_i
+        
         blackjack_playing = "y"
         while blackjack_playing == "y"
+        gamble = gets.to_i
         hand.push(cards.sample)
         hand.push(cards.sample)
         puts "You look down and your cards are #{hand[0]} of #{deck.keys.sample} and #{hand[1]} of #{deck.keys.sample} with a total of #{hand.sum}"
@@ -100,7 +102,7 @@ class Blackjack
         puts "Play again? Y/N"
         hand.clear
         blackjack_playing = gets.chomp.downcase
-    end
+        end
     puts "Returning to Game Menu"
     menu()
     end

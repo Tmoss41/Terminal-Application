@@ -1,4 +1,5 @@
-class HorseRacing
+require_relative 'games'
+class HorseRacing < Games
     def initialize(balance, name)
         @balance = balance
         @name = name
@@ -39,7 +40,7 @@ class HorseRacing
 # Randomly Pick a horse to win
     def race
         horse_playing = true
-        while horse_playing == true and @balance > 0
+        while horse_playing == true
             horses = {PinkLightning: 1, WildCat: 2, Eclipse: 3, Delphi: 4, TheDaringDrunk: 5, CrazySisterSeline: 6, JackSparrow: 7, RunningBull: 8}
             racers = []
             selector = 0

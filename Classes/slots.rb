@@ -1,10 +1,10 @@
-require 'colorize'
+require_relative "games"
 # Enter how much you want to gamble
 # Spin the wheel
 # Get the result
 # Return a value based on result
 # Add gambled amount to balance
-class Slots
+class Slots < Games
     @tally = 0
     def initialize(balance, name)
         @balance = balance
@@ -58,12 +58,26 @@ class Slots
             puts "Minor Jackpot"
             @balance = (0.5 * bet).to_i + @balance
         elsif result.count(:jackpot) == 3
+            puts "
+            ███████╗ ███████╗ ███████╗
+            ╚════██║ ╚════██║ ╚════██║
+            ░░░░██╔╝ ░░░░██╔╝ ░░░░██╔╝
+            ░░░██╔╝░ ░░░██╔╝░ ░░░██╔╝░
+            ░░██╔╝░░ ░░██╔╝░░ ░░██╔╝░░
+            ░░╚═╝░░░ ░░╚═╝░░░ ░░╚═╝░░░".colorize(:yellow)
             puts "Ding Ding Ding, Jackpot"
             @balance = (3 * bet)+ @balance
         elsif result.count(:breakeven) >=2
             puts "Nothing loss, nothing gained, Broke Even"
         else result.count(:loss) >= 2
             puts "You Lose"
+            
+            puts "
+             _____    _____     _____
+
+           | () () || () () | | () () |
+             |||||    |||||     |||||
+             |||||    |||||     |||||".colorize(:yellow)
             @balance = @balance - bet
         end
         puts "Your balance is now #{@balance}"
