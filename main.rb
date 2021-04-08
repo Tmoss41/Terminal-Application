@@ -5,20 +5,18 @@ require_relative './classes/user'
 require_relative './modules/login'
 
 main_heading()
-
-puts "Welcome to the Moss Casino, have you been here before? (Yes/No)"
-returning_user = gets.chomp.downcase
+choice = TTY::Prompt.new
+returning_user = choice.select("Welcome, have you been here before?", ["Yes", "No"])
 case returning_user
-when "yes"
+when "Yes"
     details = login_screen()
     # selection = gets.chomp.downcase
     # puts @ + "#{selection}"
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
-    display_menu()#Displays menu from the Menu Module
     in_the_casino = true
     input_loop(in_the_casino, details[0], details[1].to_i)
 
-when "no"
+when "No"
     puts "Well, then if you are new to our establishment, what would your name be?"
     name = gets.chomp
     puts "Hello #{name}, how old are you?"
@@ -33,7 +31,6 @@ when "no"
     puts "Balance : $#{balance}"
     user = Users.new(name, balance)
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
-    display_menu()#Displays menu from the Menu Module
     in_the_casino = true
     input_loop(in_the_casino, name, balance) #Loops through the Menu and input pormpt `   `
 end

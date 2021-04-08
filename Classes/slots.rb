@@ -11,7 +11,7 @@ class Slots < Games
         @name = name
         @tally =+ 1
     end
-    def slot_rules
+    def rules
         puts "
         ██████╗░██╗░░░██╗██╗░░░░░███████╗░██████╗
         ██╔══██╗██║░░░██║██║░░░░░██╔════╝██╔════╝
@@ -28,36 +28,35 @@ class Slots < Games
                menu()
             end
     end
-    def menu
+    def game
+        choice = TTY::Prompt.new
+        reel = {jackpot: 2, breakeven: 1, loss: 0 }
         
-        puts "1. Play".colorize(:yellow)
-        puts "2. Rules".colorize(:yellow)
-        puts "3. Back".colorize(:yellow)
-        slot_input = gets.to_i
-        case slot_input
-        when 1
-            round_of_slots()
-        when 2
-            slot_rules()
-        when 3
-            display_menu()
-            input_loop(true, @name, @balance)
-        end
-    end
-    def round_of_slots
-        reel = {jackpot: 3, loss: 1, breakeven: 2}
         slots_playing = true
         while slots_playing == true and @balance > 0
-        result = []
-        puts "How much would you like to bet"
-        bet = gets.to_i
-        3.times{result.push(reel.keys.sample)}
-        puts "The Wheels spin and reveal...."
-        puts result
-        if result.count(:jackpot) >= 2
+            reel_size = choice.select("Select how many Reels", [3, 6 , 9])
+            result = []
+            case reel_size
+            when 3
+                3.times{result.push(reel.keys.sample)}
+            when 6
+                6.times{result.push(reel.keys.sample)}
+            when 9
+                9.times{result.push(reel.keys.sample)}
+            end
+            puts "How much would you like to bet"
+            bet = gets.to_i
+            score = []
+            puts result
+            puts "The Wheels spin and reveal...."
+            result.each do |reel_result|
+                score.push(reel[reel_result.to_sym])
+            end
+            puts score.sum
+            if result.count(:jackpot) >= reel_size/2
             puts "Minor Jackpot"
             @balance = (0.5 * bet).to_i + @balance
-        elsif result.count(:jackpot) == 3
+        elsif result.count(:jackpot) == reel_size
             puts "
             ███████╗ ███████╗ ███████╗
             ╚════██║ ╚════██║ ╚════██║
@@ -67,9 +66,9 @@ class Slots < Games
             ░░╚═╝░░░ ░░╚═╝░░░ ░░╚═╝░░░".colorize(:yellow)
             puts "Ding Ding Ding, Jackpot"
             @balance = (3 * bet)+ @balance
-        elsif result.count(:breakeven) >=2
+        elsif result.count(:breakeven) >= reel_size/2
             puts "Nothing loss, nothing gained, Broke Even"
-        else result.count(:loss) >= 2
+        else result.count(:loss) >= reel_size/2
             puts "You Lose"
             
             puts "
@@ -81,16 +80,15 @@ class Slots < Games
             @balance = @balance - bet
         end
         puts "Your balance is now #{@balance}"
-        puts "Play Again?(Yes/No)"
-        slots_playing = gets.chomp.downcase
+        slots_playing = choice.select("Do you want to play again?" , ["Yes", "No"])
         case slots_playing
-        when "yes"
+        when "Yes"
             slots_playing = true
-        when "no"
+        when "No"
             slots_playing = false
         end
         end
         puts "Returning to Game Menu"
-        menu()
+        game_menu()
     end
 end

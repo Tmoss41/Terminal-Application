@@ -4,7 +4,7 @@ class HorseRacing < Games
         @balance = balance
         @name = name
     end
-    def horse_rules
+    def rules
         puts "
         ██████╗░██╗░░░██╗██╗░░░░░███████╗░██████╗
         ██╔══██╗██║░░░██║██║░░░░░██╔════╝██╔════╝
@@ -20,42 +20,27 @@ class HorseRacing < Games
                menu()
             end
     end
-    def menu
-        puts "1. Play".colorize(:green)
-        puts "2. Rules".colorize(:green)
-        puts "3. Back".colorize(:green)
-        slot_input = gets.to_i
-        case slot_input
-        when 1
-            race()
-        when 2
-            horse_rules()
-        when 3
-            display_menu()
-            input_loop(true, @name, @balance)
-        end
-    end
 # Ask how much they want to gamble
 # Give a list of Horses from a list of names
 # Randomly Pick a horse to win
-    def race
+    def game
         horse_playing = true
         while horse_playing == true
-            horses = {PinkLightning: 1, WildCat: 2, Eclipse: 3, Delphi: 4, TheDaringDrunk: 5, CrazySisterSeline: 6, JackSparrow: 7, RunningBull: 8}
+            selecting = TTY::Prompt.new
+            horses = ['PinkLightning', 'WildCat', 'Eclipse', 'Delphi', 'TheDaringDrunk', 'CrazySisterSeline', 'JackSparrow', 'RunningBull']
             racers = []
             selector = 0
             4.times{
-                racer = horses.keys.sample
-                horses.delete(racer.to_sym)
+                racer = horses.sample
+                horses.delete(racer)
                 racers.push(racer)
             }
             puts "The following horses are racing"
             puts racers
-            puts "Who do you think will win?"
-            choice = gets.chomp.downcase
+            choice = selecting.select("Who do you think will win", racers)
             puts "How much would you like to bet on #{choice}"
             bet = gets.to_i
-            winner = racers.sample.to_s
+            winner = racers.sample
             case winner.downcase.include?(choice)
             when true
                 puts "#{winner} comes thundering over the line, you have won this time"
@@ -64,15 +49,14 @@ class HorseRacing < Games
                 puts "#{winner} comes in first, better luck next time!"
                 @balance = @balance - bet
             end
-            puts "Would you like to bet on the next race(Yes/No)?"
-            horse_input = gets.chomp.downcase
+            horse_input = selecting.select("Would you like to bet on the next race" , ["Yes","No"])
             case horse_input
-            when "yes"
-            when "no"
+            when "Yes"
+            when "No"
                 horse_playing = false
             end 
         end
         puts "Returning to Game Menu"
-        menu()
+        game_menu()
     end
 end

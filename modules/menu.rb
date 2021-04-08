@@ -10,48 +10,39 @@ require_relative 'login.rb'
 #         super("Not Enough Funds")
 #     end
 # end
+require 'tty-prompt'
 
 module Menu
     include Headings
     include Login
-    def display_menu
-        puts "Please select what you would like to do (Enter a number or text of what you would like to do i.e 7 to Leave".colorize(:red)
-        puts "                              The facilities we have in the casino include:                                ".colorize(:white)
-        puts "                                          1. Blackjack                                                     ".colorize(:red)
-        puts "                                          2. Roulette                                                      ".colorize(:white)
-        puts "                                          3. Slot Machines                                                 ".colorize(:red)
-        puts "                                          4. Poker                                                         ".colorize(:white)
-        puts "                                          5. Horse Racing                                                  ".colorize(:red)
-        puts "                                          6. Famous past patrons (Show Scoreboard)                         ".colorize(:white)
-        puts "                                          7. Leave                                                         ".colorize(:red)
-    end
     def input_loop(playing, name, balance)
-        input = gets.to_i
+        prompt = TTY::Prompt.new
+        input = prompt.select('Please Select an Option', ["Blackjack", "Roulette", "Slot-Machines", "Poker",  "Horse-Racing", "Famous-Patrons", "Leave" ])
+        puts input.class
             case input
-            when 1
+            when "Blackjack"
                 blackjack = Blackjack.new(balance, name)
                 black_heading()
-                blackjack.menu
-            when 2
-            when 3
+                blackjack.game_menu
+            when "Roulette"
+            when "Slot-Machines"
                 slots_heading()
                 slots = Slots.new(balance, name)
-                slots.menu
-            when 4
-            when 5
+                slots.game_menu
+            when "Poker"
+            when "Horse-Racing"
                 horse_heading()
                 horse_racing = HorseRacing.new(balance, name)
-                horse_racing.menu
-            when 6
+                horse_racing.game_menu
+            when "Famous-Patrons"
                 score_display = File.read('./scoreboard.txt')
                 puts score_display
                 puts "To Leave, please enter back"
                 back = gets.chomp
                 if back == "back"
-                    display_menu()
                     input_loop(playing, @name, @balance)
                 end
-            when 7
+            when "Leave"
                 puts "Have a Wonderful Evening #{name}, would you like to leave your money as credit here? (Yes/No)"
                 save_progress = gets.chomp.downcase
                 if save_progress == "yes"
