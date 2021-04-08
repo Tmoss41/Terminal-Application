@@ -66,14 +66,13 @@ class Blackjack < Games
             when "hit"
                 hand.push(cards.sample)
                 puts "The dealer hands you another card, it is a #{hand[2]} of #{deck.keys.sample}, and your new total is #{hand.sum}"
+                if hand.sum > 21
+                    puts "Bust"
+                    @balance = @balance - gamble
+                end
             when "stand"
                 puts "You have chosen to stand"
             end
-        end
-        if hand.sum > 21
-            puts "Bust"
-            @balance = @balance - gamble
-
         end
         iterations = 0
         house = 0

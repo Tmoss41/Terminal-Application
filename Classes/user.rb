@@ -9,8 +9,9 @@ end
 @users = {}
 
 # Tim 2021-04-06 17:11:57 +1000
+
+
+# Tim 2021-04-06 20:24:04 +1000
 @users[:tim] = Users.new('Tim', 500)
-# Alex 2021-04-06 19:20:19 +1000
-@users[:alex] = Users.new('Alex', 500)
-# Tim 2021-04-06 19:20:45 +1000
-@users[:tim] = Users.new('Tim', 600)
+ puts @users.key?("tim".to_sym)
+ puts @users[:tim]

@@ -1,8 +1,10 @@
 require_relative '../classes/blackjack'
 require_relative '../classes/slots'
 require_relative '../classes/horses'
+require_relative '../classes/user'
 require 'colorize'
 require_relative 'headings'
+require_relative 'login.rb'
 # class InsufficientFunds < StandardError
 #     def initialize
 #         super("Not Enough Funds")
@@ -11,6 +13,7 @@ require_relative 'headings'
 
 module Menu
     include Headings
+    include Login
     def display_menu
         puts "Please select what you would like to do (Enter a number or text of what you would like to do i.e 7 to Leave".colorize(:red)
         puts "                              The facilities we have in the casino include:                                ".colorize(:white)
@@ -52,14 +55,14 @@ module Menu
                 puts "Have a Wonderful Evening #{name}, would you like to leave your money as credit here? (Yes/No)"
                 save_progress = gets.chomp.downcase
                 if save_progress == "yes"
-                    puts "Excellent choice #{name} we have added your details to our records"
-                    puts "#{name}, Current Balance = $#{balance}"
-                    open('./classes/user.rb', 'a') {|f| 
-                        f.puts "# #{name} #{Time.now}"
-                    f.puts "@users[:#{name.downcase}] = Users.new('#{name}', #{balance})"}
-                    open('./scoreboard.txt', 'a') {|f| 
-                        f.puts "#{name} = #{balance}"}
-                    exit(true)
+                    puts "Are you updating your details or setting up new details? (Type Save or Signup)"
+                    update_or_signup = gets.chomp.downcase
+                    case update_or_signup
+                    when "save"
+                        update()
+                    when "signup"
+                        signup(balance)
+                    end
                 else
                     puts "No worries #{name}, we will not save your information and balance"
                     exit(true)

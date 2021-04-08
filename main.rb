@@ -2,6 +2,7 @@ require 'colorize'
 require_relative './modules/menu'
 include Menu
 require_relative './classes/user'
+require_relative './modules/login'
 
 main_heading()
 
@@ -9,17 +10,13 @@ puts "Welcome to the Moss Casino, have you been here before? (Yes/No)"
 returning_user = gets.chomp.downcase
 case returning_user
 when "yes"
-    require_relative 'scoreboard'
-    puts "Please Select your details, (Type in the name of the data you want"
-    puts File.read('./scoreboard.txt')
-    user_select = gets.chomp
-    user_select = @users[user_select.to_sym]
+    details = login_screen()
     # selection = gets.chomp.downcase
     # puts @ + "#{selection}"
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
     display_menu()#Displays menu from the Menu Module
     in_the_casino = true
-    input_loop(in_the_casino, user_select.name, user_select.balance)
+    input_loop(in_the_casino, details[0], details[1].to_i)
 
 when "no"
     puts "Well, then if you are new to our establishment, what would your name be?"
