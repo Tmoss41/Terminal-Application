@@ -5,6 +5,7 @@ require_relative '../classes/user'
 require 'colorize'
 require_relative 'headings'
 require_relative 'login.rb'
+require_relative '../classes/roulette'
 # class InsufficientFunds < StandardError
 #     def initialize
 #         super("Not Enough Funds")
@@ -16,31 +17,38 @@ module Menu
     include Headings
     include Login
     def input_loop(playing, name, balance)
+        
         prompt = TTY::Prompt.new
-        input = prompt.select('Please Select an Option', ["Blackjack", "Roulette", "Slot-Machines", "Poker",  "Horse-Racing", "Famous-Patrons", "Leave" ])
-        puts input.class
+        input = prompt.select('Please Select an Option', ["Blackjack".colorize(:red), "Roulette".colorize(:black), "Slot-Machines".colorize(:yellow), "Poker".colorize(:blue),  
+                                                            "Horse-Racing".colorize(:green), "Statistics".colorize(:orange), "Leave"])
             case input
-            when "Blackjack"
+            when "Blackjack".colorize(:red)
                 blackjack = Blackjack.new(balance, name)
                 black_heading()
                 blackjack.game_menu
-            when "Roulette"
-            when "Slot-Machines"
+            when "Roulette".colorize(:black)
+                roulette = Roulette.new(balance, name)
+                roulette.game_menu
+            when "Slot-Machines".colorize(:yellow)
                 slots_heading()
                 slots = Slots.new(balance, name)
                 slots.game_menu
-            when "Poker"
-            when "Horse-Racing"
+            when "Poker".colorize(:blue)
+            when "Horse-Racing".colorize(:green)
                 horse_heading()
                 horse_racing = HorseRacing.new(balance, name)
                 horse_racing.game_menu
-            when "Famous-Patrons"
-                score_display = File.read('./scoreboard.txt')
-                puts score_display
-                puts "To Leave, please enter back"
-                back = gets.chomp
-                if back == "back"
-                    input_loop(playing, @name, @balance)
+            when "Statistics".colorize(:orange)
+                while statistics = true
+                    stat_input = prompt.select('What Game Stats would you like to see?', ['Blackjack', 'Roulette', 'Slot-Machines', 'Poker', 'Horse-Racing'])
+                    case stat_input
+                    when 'Blackjack'
+                    when 'Roulette'
+                        roulette.stats
+                    when 'Slot-Machines'
+                    when 'Poker'
+                    when 'Horse-Racing'
+                    end
                 end
             when "Leave"
                 puts "Have a Wonderful Evening #{name}, would you like to leave your money as credit here? (Yes/No)"

@@ -5,11 +5,11 @@ require_relative "games"
 # Return a value based on result
 # Add gambled amount to balance
 class Slots < Games
+    attr_reader 
     @tally = 0
     def initialize(balance, name)
         @balance = balance
         @name = name
-        @tally =+ 1
     end
     def rules
         puts "
@@ -66,9 +66,9 @@ class Slots < Games
             ░░╚═╝░░░ ░░╚═╝░░░ ░░╚═╝░░░".colorize(:yellow)
             puts "Ding Ding Ding, Jackpot"
             @balance = (3 * bet)+ @balance
-        elsif result.count(:breakeven) >= reel_size/2
+        elsif result.count(:breakeven) >= reel_size.count/2
             puts "Nothing loss, nothing gained, Broke Even"
-        else result.count(:loss) >= reel_size/2
+        else result.count(:loss) >= reel_size.count/2
             puts "You Lose"
             
             puts "

@@ -17,7 +17,7 @@ class HorseRacing < Games
         puts "See if you win"
         back = gets.chomp
             if back == "back"
-               menu()
+               game_menu()
             end
     end
 # Ask how much they want to gamble

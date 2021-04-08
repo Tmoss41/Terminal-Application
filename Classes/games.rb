@@ -19,4 +19,10 @@ class Games
             input_loop(true, @name, @balance)
         end
     end
+    def stats
+        puts "Total Games Played: #{@tally}"
+        puts "Total Money Gambled: #{@total_gambled}"
+        puts "Total Games Won: #{@games_won}"
+        puts "Total Games Lost: #{@games_lost}"
+    end
 end

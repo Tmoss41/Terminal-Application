@@ -29,7 +29,6 @@ when "No"
     puts "Good Evening #{name}, since this is your first time, heres some money to get you started"
     balance = 500
     puts "Balance : $#{balance}"
-    user = Users.new(name, balance)
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
     in_the_casino = true
     input_loop(in_the_casino, name, balance) #Loops through the Menu and input pormpt `   `
