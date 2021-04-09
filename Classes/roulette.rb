@@ -41,7 +41,7 @@ class Roulette < Games
             @tally = @tally + 1
             puts "How much you want to bet"
             bet = gets.to_i
-            odds = @choice.select("Select Betting Type", ["Even", "2 to 1", 'Long Odds'])
+            odds = @choice.select("Select Betting Type", ["Even", "2 to 1", '35 to 1'])
             result = @wheel[:numbers].sample
             case odds
             when "Even"
@@ -69,20 +69,22 @@ class Roulette < Games
                     won = (13..24).to_a.include?(result)
                 when "Last Dozen"
                     won = (25..36).to_a.include?(result)
-            when "Column Bet"
-                column = @choice.select('Select the Column you want to bet on (See Rules for the Numbers Involved)', 
+                when "Column Bet"
+                    column = @choice.select('Select the Column you want to bet on (See Rules for the Numbers Involved)', 
                                        ['Column 1', 'Column 2', 'Column 3'])
-                case column
-                when 'Column 1'
-                    won = @wheel[:column_one].include?(result)
-                when 'Column 2'
-                    won = @wheel[:column_two].include?(result)
-                when 'Column 3'
-                    won = @wheel[:column_three].include?(result)
+                    case column
+                    when 'Column 1'
+                        won = @wheel[:column_one].include?(result)
+                    when 'Column 2'
+                        won = @wheel[:column_two].include?(result)
+                    when 'Column 3'
+                        won = @wheel[:column_three].include?(result)
+                    end
                 end
-            end
-            when "Longs Odds"
-                puts 'Coming Soon'
+            when "35 to 1"
+                "Enter the number you wish to bet on"
+                number = gets.to_i
+                won = result == number
             end
             puts result
             case won

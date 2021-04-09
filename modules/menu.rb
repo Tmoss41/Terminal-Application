@@ -19,14 +19,14 @@ module Menu
     def input_loop(playing, name, balance)
         
         prompt = TTY::Prompt.new
-        input = prompt.select('Please Select an Option', ["Blackjack".colorize(:red), "Roulette".colorize(:black), "Slot-Machines".colorize(:yellow), "Poker".colorize(:blue),  
+        input = prompt.select('Please Select an Option', ["Blackjack".colorize(:red), "Roulette".colorize(:grey), "Slot-Machines".colorize(:yellow), "Poker".colorize(:blue),  
                                                             "Horse-Racing".colorize(:green), "Statistics".colorize(:orange), "Leave"])
             case input
             when "Blackjack".colorize(:red)
                 blackjack = Blackjack.new(balance, name)
                 black_heading()
                 blackjack.game_menu
-            when "Roulette".colorize(:black)
+            when "Roulette".colorize(:grey)
                 roulette = Roulette.new(balance, name)
                 roulette.game_menu
             when "Slot-Machines".colorize(:yellow)
