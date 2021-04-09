@@ -33,6 +33,7 @@ class Blackjack < Games
         cards = [1,2,3,4,5,6,7,8,9,10,10,10,10]
         deck = {spade: cards, hearts: cards, spades: cards, clubs: cards}
         hand = []
+        bust = false
         blackjack_playing = "Yes"
         while blackjack_playing == "Yes" and @balance > 0
             bet = gamble()
@@ -40,18 +41,18 @@ class Blackjack < Games
             puts "You look down and your cards are #{hand[0]} of #{deck.keys.sample} and #{hand[1]} of #{deck.keys.sample} with a total of #{hand.sum}"
             choice = TTY::Prompt.new
             hit_or_stand = "Hit"
-            while hit_or_stand == "Hit"
+            until hit_or_stand == "Stand"
                 hit_or_stand = choice.select("Do you want to Hit or Stand?", ['Hit' ,'Stand'])
-                bust = false
                 case hit_or_stand
                 when "Hit"
                     hand.push(cards.sample)
                     puts "The dealer hands you another card, it is a #{hand[2]} of #{deck.keys.sample}, and your new total is #{hand.sum}"
                     if hand.sum > 21
                         puts "Bust"
-                        @balance = @balance - gamble
+                        @balance = @balance - bet
+                        puts "Your balance is now #{@balance}"
+                        hit_or_stand = "Stand"
                         bust = true
-                        hit_or_stand = "stand"
                     end
                 when "Stand"
                     puts "You have chosen to stand"
@@ -66,10 +67,10 @@ class Blackjack < Games
             end
             puts "Your score is #{hand.sum}"
             puts "House score is #{house}"
-            if hand.sum > house and hand.sum < 21 and  bust == false
+            if hand.sum > house && hand.sum < 21 && !bust
                 puts "You win!"
                 @balance = @balance + bet
-            elsif house > 21
+            elsif house > 21 and hand.sum < 21
                 puts "You win!"
                 @balance = @balance + bet
             elsif hand.sum == 21
@@ -78,10 +79,11 @@ class Blackjack < Games
             else
                 puts "House wins"
                 @balance = @balance - bet
+                
             end
             puts "You have $#{@balance}"
-            blackjack_playing = choice.select("Play Again?" ,["Yes", "No"])
             hand.clear
+            blackjack_playing = choice.select("Play Again?" ,["Yes", "No"])
         end
         puts "Returning to Game Menu"
         game_menu()

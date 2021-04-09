@@ -1,16 +1,11 @@
+
 class Games
     def gamble
-        puts 'Please Enter the amount you would like to gamble'
-        gamble_valid = false
-            until gamble_valid == true
-            bet = gets.strip.to_i
-                if bet == 0
-                    puts "Please Enter a Valid Bet"
-                else 
-                    gamble_valid = true
-                end
-            end
-        return bet
+        place_bet = TTY::Prompt.new
+        gamble = place_bet.ask("How much would you like to bet?:", convert: :float) do |q|
+            q.convert(:float, "%{value} is not a valid bet, plese try again using only numbers")
+        end
+        return gamble
     end
     def game_menu
         game_menu = TTY::Prompt.new

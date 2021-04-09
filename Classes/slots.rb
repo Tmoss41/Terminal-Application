@@ -45,7 +45,7 @@ class Slots < Games
                 9.times{result.push(reel.keys.sample)}
             end
             puts "How much would you like to bet"
-            bet = gets.to_i
+            bet = gamble()
             score = []
             puts result
             puts "The Wheels spin and reveal...."

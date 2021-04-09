@@ -40,7 +40,7 @@ class Roulette < Games
         while playing
             @tally = @tally + 1
             puts "How much you want to bet"
-            bet = gets.to_i
+            bet = gamble()
             odds = @choice.select("Select Betting Type", ["Even", "2 to 1", '35 to 1'])
             result = @wheel[:numbers].sample
             case odds
@@ -86,9 +86,9 @@ class Roulette < Games
                 number = gets.to_i
                 won = result == number
             end
-            puts result
             case won
             when true
+                puts "The number is #{result}"
                 puts "Looks like you win this time"
                 @balance = @balance + bet
                 puts "Your balance is now #{@balance}"

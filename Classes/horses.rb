@@ -39,7 +39,7 @@ class HorseRacing < Games
             puts racers
             choice = selecting.select("Who do you think will win", racers)
             puts "How much would you like to bet on #{choice}"
-            bet = gets.to_i
+            bet = gamble()
             winner = racers.sample
             case winner.downcase.include?(choice)
             when true
