@@ -39,7 +39,7 @@ module Menu
                 horse_racing = HorseRacing.new(balance, name)
                 horse_racing.game_menu
             when "Statistics".colorize(:orange)
-                while statistics = true
+                while statistics == true
                     stat_input = prompt.select('What Game Stats would you like to see?', ['Blackjack', 'Roulette', 'Slot-Machines', 'Poker', 'Horse-Racing'])
                     case stat_input
                     when 'Blackjack'

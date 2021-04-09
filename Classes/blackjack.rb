@@ -33,10 +33,9 @@ class Blackjack < Games
         cards = [1,2,3,4,5,6,7,8,9,10,10,10,10]
         deck = {spade: cards, hearts: cards, spades: cards, clubs: cards}
         hand = []
-        puts "How much would you like to gamble?"
         blackjack_playing = "Yes"
         while blackjack_playing == "Yes" and @balance > 0
-            gamble = gets.to_i
+            bet = gamble()
             2.times{hand.push(cards.sample)}
             puts "You look down and your cards are #{hand[0]} of #{deck.keys.sample} and #{hand[1]} of #{deck.keys.sample} with a total of #{hand.sum}"
             choice = TTY::Prompt.new
@@ -67,18 +66,18 @@ class Blackjack < Games
             end
             puts "Your score is #{hand.sum}"
             puts "House score is #{house}"
-            if hand.sum > house and hand.sum < 21 and  bust = false
+            if hand.sum > house and hand.sum < 21 and  bust == false
                 puts "You win!"
-                @balance = @balance + gamble
+                @balance = @balance + bet
             elsif house > 21
                 puts "You win!"
-                @balance = @balance + gamble
+                @balance = @balance + bet
             elsif hand.sum == 21
                 puts "Blackjack, you win!"
-                @balance = @balance + (gamble * 2)
+                @balance = @balance + (bet * 2)
             else
                 puts "House wins"
-                @balance = @balance - gamble
+                @balance = @balance - bet
             end
             puts "You have $#{@balance}"
             blackjack_playing = choice.select("Play Again?" ,["Yes", "No"])

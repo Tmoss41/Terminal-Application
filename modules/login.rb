@@ -27,7 +27,7 @@ module Login
     def signup(balance)
         signed_up = true
         puts "Excellent choice, we will add your details to our records, what would you like your username to be?"
-        while signed_up = true
+        while signed_up == true
             user_name_taken = false
             until_name_taken = false
             username = gets.chomp
@@ -52,7 +52,6 @@ module Login
         file = File.read('users.json')
         user = JSON.parse(file)
         user[username_check] = [password, @balance]
-        puts user
         File.write('users.json', JSON.dump(user))
     end
 end

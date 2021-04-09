@@ -1,8 +1,6 @@
-require 'colorize'
 require_relative './modules/menu'
 include Menu
-require_relative './classes/user'
-require_relative './modules/login'
+
 
 main_heading()
 choice = TTY::Prompt.new
@@ -11,8 +9,6 @@ case returning_user
 when "Yes"
     details = login_screen()
     username = details[1]
-    # selection = gets.chomp.downcase
-    # puts @ + "#{selection}"
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
     in_the_casino = true
     input_loop(in_the_casino, username, details[0][username.to_sym][1])

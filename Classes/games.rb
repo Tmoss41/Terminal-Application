@@ -1,11 +1,16 @@
 class Games
     def gamble
-        puts "How much would you ike to bet"
-        bet = gets.to_i
-        case bet
-        when (@balance - bet) <= 0
-            raise "Invalid Bet, Insufficient Funds"
-        end
+        puts 'Please Enter the amount you would like to gamble'
+        gamble_valid = false
+            until gamble_valid == true
+            bet = gets.strip.to_i
+                if bet == 0
+                    puts "Please Enter a Valid Bet"
+                else 
+                    gamble_valid = true
+                end
+            end
+        return bet
     end
     def game_menu
         game_menu = TTY::Prompt.new
