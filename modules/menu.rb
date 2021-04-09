@@ -55,11 +55,11 @@ module Menu
                 save_progress = gets.chomp.downcase
                 if save_progress == "yes"
                     puts "Are you updating your details or setting up new details? (Type Save or Signup)"
-                    update_or_signup = gets.chomp.downcase
+                    update_or_signup = prompt.select('Would you like to Save or Create new details' , ['Save', 'Signup'])
                     case update_or_signup
-                    when "save"
+                    when "Save"
                         update()
-                    when "signup"
+                    when "Signup"
                         signup(balance)
                     end
                 else

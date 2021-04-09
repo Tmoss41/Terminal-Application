@@ -1,6 +1,5 @@
 require 'json'
-
-
+require_relative 'menu'
 
 
 # logged_in = false
@@ -27,7 +26,7 @@ require 'json'
 #         puts @details[username.to_sym][1]
 #         puts username
 
-
+include Menu
 def login_screen
     logged_in = false
     until logged_in
@@ -53,3 +52,10 @@ def login_screen
     return @details, username
 end
 
+details = login_screen()
+    username = details[1]
+    # selection = gets.chomp.downcase
+    # puts @ + "#{selection}"
+    puts "At the Moss Casino, we have a variety of areas that you can gamble at"
+    in_the_casino = true
+    input_loop(in_the_casino, username, details[0][username.to_sym][1])
