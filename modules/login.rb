@@ -62,7 +62,7 @@ module Login
                     signup = gets.chomp.downcase
                     case signup
                     when "yes"
-                        signup(balance)
+                        signup(@balance)
                     when "no"
                         exit(true)
                     end

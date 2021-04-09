@@ -28,7 +28,7 @@ class Slots < Games
                menu()
             end
     end
-    def game
+    def game()
         choice = TTY::Prompt.new
         reel = {jackpot: 2, breakeven: 1, loss: 0 }
         
@@ -66,9 +66,9 @@ class Slots < Games
             ░░╚═╝░░░ ░░╚═╝░░░ ░░╚═╝░░░".colorize(:yellow)
             puts "Ding Ding Ding, Jackpot"
             @balance = (3 * bet)+ @balance
-        elsif result.count(:breakeven) >= reel_size.count/2
+        elsif result.count(:breakeven) >= reel_size/2
             puts "Nothing loss, nothing gained, Broke Even"
-        else result.count(:loss) >= reel_size.count/2
+        else result.count(:loss) >= reel_size/2
             puts "You Lose"
             
             puts "
