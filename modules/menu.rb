@@ -17,27 +17,43 @@ module Menu
     include Headings
     include Login
     def input_loop(playing, name, balance)
-        
-        prompt = TTY::Prompt.new
-        input = prompt.select('Please Select an Option', ["Blackjack".colorize(:red), "Roulette".colorize(:grey), "Slot-Machines".colorize(:yellow), "Poker".colorize(:blue),  
+        while playing
+            prompt = TTY::Prompt.new
+            input = prompt.select('Please Select an Option', ["Blackjack".colorize(:red), "Roulette".colorize(:grey), "Slot-Machines".colorize(:yellow), "Poker".colorize(:blue),  
                                                             "Horse-Racing".colorize(:green), "Statistics".colorize(:orange), "Leave"])
             case input
             when "Blackjack".colorize(:red)
+                at_table = true
                 blackjack = Blackjack.new(balance, name)
-                black_heading()
-                blackjack.game_menu
+                until !at_table
+                    black_heading()
+                    blackjack.game_menu
+                    at_table = false
+                end
             when "Roulette".colorize(:grey)
+                at_table = true
                 roulette = Roulette.new(balance, name)
-                roulette.game_menu
+                until !at_table 
+                    roulette.game_menu
+                    at_table = false
+                end
             when "Slot-Machines".colorize(:yellow)
-                slots_heading()
                 slots = Slots.new(balance, name)
-                slots.game_menu
+                at_table = true
+                until !at_table
+                    slots_heading()
+                    slots.game_menu
+                    at_table = false
+                end
             when "Poker".colorize(:blue)
             when "Horse-Racing".colorize(:green)
-                horse_heading()
+                at_table = true
                 horse_racing = HorseRacing.new(balance, name)
-                horse_racing.game_menu
+                until !at_table
+                    horse_heading()            
+                    horse_racing.game_menu
+                    at_table = false
+                end
             when "Statistics".colorize(:orange)
                 while statistics == true
                     stat_input = prompt.select('What Game Stats would you like to see?', ['Blackjack', 'Roulette', 'Slot-Machines', 'Poker', 'Horse-Racing'])
@@ -67,5 +83,6 @@ module Menu
                     exit(true)
                 end
             end 
+        end
     end
 end

@@ -34,8 +34,8 @@ class Blackjack < Games
         deck = {spade: cards, hearts: cards, spades: cards, clubs: cards}
         hand = []
         bust = false
-        blackjack_playing = "Yes"
-        while blackjack_playing == "Yes" and @balance > 0
+        blackjack_playing = true
+        while blackjack_playing == true and @balance > 0
             bet = gamble()
             2.times{hand.push(cards.sample)}
             puts "You look down and your cards are #{hand[0]} of #{deck.keys.sample} and #{hand[1]} of #{deck.keys.sample} with a total of #{hand.sum}"
@@ -48,9 +48,7 @@ class Blackjack < Games
                     hand.push(cards.sample)
                     puts "The dealer hands you another card, it is a #{hand[2]} of #{deck.keys.sample}, and your new total is #{hand.sum}"
                     if hand.sum > 21
-                        puts "Bust"
-                        @balance = @balance - bet
-                        puts "Your balance is now #{@balance}"
+                        puts "Bust, Thats an instant lose"
                         hit_or_stand = "Stand"
                         bust = true
                     end
@@ -67,26 +65,30 @@ class Blackjack < Games
             end
             puts "Your score is #{hand.sum}"
             puts "House score is #{house}"
-            if hand.sum > house && hand.sum < 21 && !bust
-                puts "You win!"
-                @balance = @balance + bet
-            elsif house > 21 and hand.sum < 21
-                puts "You win!"
-                @balance = @balance + bet
-            elsif hand.sum == 21
-                puts "Blackjack, you win!"
-                @balance = @balance + (bet * 2)
-            else
-                puts "House wins"
+            case bust
+            when true
                 @balance = @balance - bet
-                
+                puts "Your balance is now #{@balance}"
+            when false
+                house_bust = house > 21
+                blackjack = hand.sum == 21
+                high_number = hand.sum > house
+                win =  high_number || blackjack || house_bust
+                case win
+                when true
+                    puts "You win!"
+                    @balance = @balance + bet
+                    puts "You have $#{@balance}"
+                when false
+                    puts "House wins"
+                    @balance = @balance - bet
+                    puts "You have $#{@balance}"
+                end
             end
-            puts "You have $#{@balance}"
             hand.clear
-            blackjack_playing = choice.select("Play Again?" ,["Yes", "No"])
+            blackjack_playing = choice.select("Play Again?" ,["Yes", "No"]) == "Yes"
         end
         puts "Returning to Game Menu"
-        game_menu()
     end
 end
 

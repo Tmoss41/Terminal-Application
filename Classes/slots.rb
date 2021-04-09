@@ -6,10 +6,12 @@ require_relative "games"
 # Add gambled amount to balance
 class Slots < Games
     attr_reader 
-    @tally = 0
+    
+    
     def initialize(balance, name)
         @balance = balance
         @name = name
+        @limit = 1000
     end
     def rules
         puts "
@@ -30,65 +32,52 @@ class Slots < Games
     end
     def game()
         choice = TTY::Prompt.new
-        reel = {jackpot: 2, breakeven: 1, loss: 0 }
-        
+        reel = {jackpot: 7, loss: 0}
         slots_playing = true
-        while slots_playing == true and @balance > 0
-            reel_size = choice.select("Select how many Reels", [3, 6 , 9])
+        until !slots_playing and @balance >= 0
+            reel_size = choice.select("Select how many Reels", [4, 8 , 12])
             result = []
             case reel_size
-            when 3
-                3.times{result.push(reel.keys.sample)}
-            when 6
-                6.times{result.push(reel.keys.sample)}
-            when 9
-                9.times{result.push(reel.keys.sample)}
+            when 4
+                4.times{result.push(reel.values.sample)}
+            when 8
+                8.times{result.push(reel.values.sample)}
+            when 12
+                12.times{result.push(reel.values.sample)}
             end
-            puts "How much would you like to bet"
             bet = gamble()
-            score = []
-            puts result
             puts "The Wheels spin and reveal...."
-            result.each do |reel_result|
-                score.push(reel[reel_result.to_sym])
+            won = result.count(7) == reel_size
+            minor_win = result.count(7) == reel_size*0.75
+            loser = true
+            p result
+            case won
+            when true
+                puts "Ding Ding Ding, Jackpot"
+                @balance = (3 * bet)+ @balance
+                loser = false
+                @limit = @limit - (bet * 3)
             end
-            puts score.sum
-            if result.count(:jackpot) >= reel_size/2
-            puts "Minor Jackpot"
-            @balance = (0.5 * bet).to_i + @balance
-        elsif result.count(:jackpot) == reel_size
-            puts "
-            ███████╗ ███████╗ ███████╗
-            ╚════██║ ╚════██║ ╚════██║
-            ░░░░██╔╝ ░░░░██╔╝ ░░░░██╔╝
-            ░░░██╔╝░ ░░░██╔╝░ ░░░██╔╝░
-            ░░██╔╝░░ ░░██╔╝░░ ░░██╔╝░░
-            ░░╚═╝░░░ ░░╚═╝░░░ ░░╚═╝░░░".colorize(:yellow)
-            puts "Ding Ding Ding, Jackpot"
-            @balance = (3 * bet)+ @balance
-        elsif result.count(:breakeven) >= reel_size/2
-            puts "Nothing loss, nothing gained, Broke Even"
-        else result.count(:loss) >= reel_size/2
-            puts "You Lose"
-            
-            puts "
-             _____    _____     _____
-
-           | () () || () () | | () () |
-             |||||    |||||     |||||
-             |||||    |||||     |||||".colorize(:yellow)
-            @balance = @balance - bet
-        end
-        puts "Your balance is now #{@balance}"
-        slots_playing = choice.select("Do you want to play again?" , ["Yes", "No"])
-        case slots_playing
-        when "Yes"
-            slots_playing = true
-        when "No"
-            slots_playing = false
-        end
-        end
+            case minor_win
+            when true
+                puts "Minor Jackpot"
+                @balance = (0.5 * bet).to_i + @balance
+                loser = false
+                @limit = @limit - (0.5 * bet)
+            end
+            case loser
+            when true
+                puts "You lose"
+                @balance = @balance - bet
+                
+            end
+            if @limit < 0
+                puts "Looks like you are having fun, maybe you should go try another table, so we can check this machine is working :)"
+                input_loop(true, @name, @balance)
+            end
+            puts "Your balance is now #{@balance}"
+        slots_playing = choice.select("Do you want to play again?" , ["Yes", "No"]) == "Yes"
         puts "Returning to Game Menu"
-        game_menu()
     end
+end
 end

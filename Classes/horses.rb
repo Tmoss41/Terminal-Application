@@ -38,10 +38,9 @@ class HorseRacing < Games
             puts "The following horses are racing"
             puts racers
             choice = selecting.select("Who do you think will win", racers)
-            puts "How much would you like to bet on #{choice}"
             bet = gamble()
             winner = racers.sample
-            case winner.downcase.include?(choice)
+            case winner == choice
             when true
                 puts "#{winner} comes thundering over the line, you have won this time"
                 @balance = bet + @balance
@@ -49,14 +48,8 @@ class HorseRacing < Games
                 puts "#{winner} comes in first, better luck next time!"
                 @balance = @balance - bet
             end
-            horse_input = selecting.select("Would you like to bet on the next race" , ["Yes","No"])
-            case horse_input
-            when "Yes"
-            when "No"
-                horse_playing = false
-            end 
+            horse_playing = selecting.select("Would you like to bet on the next race" , ["Yes","No"]) == "Yes"
         end
         puts "Returning to Game Menu"
-        game_menu()
     end
 end

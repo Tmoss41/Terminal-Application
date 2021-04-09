@@ -37,7 +37,7 @@ class Roulette < Games
     end
     def game
         playing = true
-        while playing
+        until !playing
             @tally = @tally + 1
             puts "How much you want to bet"
             bet = gamble()
@@ -100,16 +100,7 @@ class Roulette < Games
                 @games_lost = @games_lost
             end
             @total_gambled = @total_gambled + bet
-            play_again = @choice.select('Play Again?', ['Yes', 'No'])
-            case play_again
-            when 'Yes'
-                playing = true
-            when 'No'
-                playing = false
-                puts 'Returning to Game Menu'
-                puts @tally
-                game_menu()
-            end
+            playing = @choice.select('Play Again?', ['Yes', 'No']) == "Yes"
         end
     end
 end

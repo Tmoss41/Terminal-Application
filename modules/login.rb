@@ -53,5 +53,6 @@ module Login
         user = JSON.parse(file)
         user[username_check] = [password, @balance]
         File.write('users.json', JSON.dump(user))
+        exit(true)
     end
 end
