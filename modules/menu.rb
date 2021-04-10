@@ -34,6 +34,7 @@ module Menu
                 at_table = true
                 roulette = Roulette.new(balance, name)
                 until !at_table 
+                    roulette_heading()
                     roulette.game_menu
                     at_table = false
                 end
