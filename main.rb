@@ -5,7 +5,7 @@ require 'json'
 
 main_heading()
 
-new_user_status = ARGV[0]
+new_user_status = ARGV[0] if ARGV[0]
 retrieve_users = ARGV.include?("retrieve")
 wants_rules = ARGV.include?("rules")
 ARGV.clear
@@ -38,9 +38,20 @@ case returning_user
 when "Yes"
     details = login_screen()
     username = details[1]
+    balance = details[0][username.to_sym][1]
+    case new_user_status
+    when "easy"
+        balance = 1000
+    when "normal"
+        balance = 500
+    when "hard"
+        balance = 250
+    when "maniac"
+        balance = 100
+    end
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
     in_the_casino = true
-    input_loop(in_the_casino, username, details[0][username.to_sym][1])
+    input_loop(in_the_casino, username, balance)
 
 when "No"
     puts "Well, then if you are new to our establishment, what would your name be?"

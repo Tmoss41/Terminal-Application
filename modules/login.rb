@@ -8,8 +8,16 @@ module Login
             username = gets.chomp
             puts "Enter your password"
             password = gets.chomp
-            file = File.read('./users.json')
-            user = JSON.parse(file)
+            begin
+                file = File.read('./users.json')
+                user = JSON.parse(file)
+            rescue Errno::ENOENT
+                puts "Main Login File is Missing, Please refer to Documentation on how to fix, Alternatively, please select No and play a single game"
+                exit(true)
+            rescue  JSON::ParserError
+                puts "User file is having issues, please run restore script"
+                exit(true)
+            end
             user.each do |key, value|
                 if key == username
                     if value.include?(password)
@@ -33,8 +41,16 @@ module Login
             username = gets.chomp
             puts "Please Enter your password"
             password = gets.chomp
-            file = File.read('users.json')
+            begin
+            file = File.read('./users.json')
             user = JSON.parse(file)
+            rescue Errno::ENOENT
+            puts "Main Login File is Missing, Please refer to Documentation on how to fix, Saving or Signing Up Unavailable in this state"
+            exit(true)
+            rescue  JSON::ParserError
+            puts "User file is having issues, please run restore script"
+            exit(true)
+            end
             if user.keys.include?(username)
                 puts "Username is already taken please try again"
             else
@@ -49,8 +65,16 @@ module Login
         username_check = gets.chomp
         puts "Enter your password"
         password = gets.chomp
-        file = File.read('users.json')
-        user = JSON.parse(file)
+        begin
+            file = File.read('./users.json')
+            user = JSON.parse(file)
+        rescue Errno::ENOENT
+            puts "Main Login File is Missing, Please refer to Documentation on how to fix, Saving or Signing Up Unavailable in this state"
+            exit(true)
+        rescue  JSON::ParserError
+            puts "User file is having issues, please run restore script"
+            exit(true)
+        end
         user[username_check] = [password, @balance]
         File.write('users.json', JSON.dump(user))
         exit(true)
