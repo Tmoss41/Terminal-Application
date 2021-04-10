@@ -49,18 +49,6 @@ module Menu
                     horse_racing.game_menu
                     at_table = false
                 end
-            when "Statistics".colorize(:orange)
-                while statistics == true
-                    stat_input = prompt.select('What Game Stats would you like to see?', ['Blackjack', 'Roulette', 'Slot-Machines', 'Poker', 'Horse-Racing'])
-                    case stat_input
-                    when 'Blackjack'
-                    when 'Roulette'
-                        roulette.stats
-                    when 'Slot-Machines'
-                    when 'Poker'
-                    when 'Horse-Racing'
-                    end
-                end
             when "Leave"
                 puts "Have a Wonderful Evening #{name}, would you like to leave your money as credit here? (Yes/No)"
                 save_progress = prompt.yes?("Do you want to save?")

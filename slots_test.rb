@@ -21,10 +21,10 @@
 
 # # Loss Test, Should Return True
 # result = [:loss, :loss, :loss]
-reel_size = 3
-result = [:jackpot, :jackpot, :jackpot]
+# reel_size = 3
+# result = [:jackpot, :jackpot, :jackpot]
 
-puts won
+# puts won
 # if 
 #     puts "Minor Jackpot"
 #     @balance = (0.5 * bet).to_i + @balance
@@ -52,3 +52,5 @@ puts won
 #     @balance = @balance - bet
 # end
 # puts "Your balance is now #{@balance}"
+ARGV.push("Test", "Test")
+puts ARGV
