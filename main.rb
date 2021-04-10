@@ -16,8 +16,10 @@ when "Yes"
 when "No"
     puts "Well, then if you are new to our establishment, what would your name be?"
     name = gets.chomp
-    puts "Hello #{name}, how old are you?"
-    age = gets.to_i
+    age_check = TTY::Prompt.new
+    age = age_check.ask("How old are you:", convert: :float) do |q|
+            q.convert(:float, "%{value} is not a valid age entry, please try again")
+    end
     case age < 18
     when true
         puts "You are a bit too young for this place, goodbye"

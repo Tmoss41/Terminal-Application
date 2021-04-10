@@ -6,11 +6,6 @@ require 'colorize'
 require_relative 'headings'
 require_relative 'login.rb'
 require_relative '../classes/roulette'
-# class InsufficientFunds < StandardError
-#     def initialize
-#         super("Not Enough Funds")
-#     end
-# end
 require 'tty-prompt'
 
 module Menu
