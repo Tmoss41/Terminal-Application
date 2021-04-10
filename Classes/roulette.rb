@@ -33,6 +33,10 @@ class Roulette < Games
                   Low Bet: You win if the choosen number is in between 1-18
                   High Bet: You win if the number choosen is between 19-36
                   "
+            back = gets.chomp
+            if back == "back"
+               return
+            end
         end
     end
     def game

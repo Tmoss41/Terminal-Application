@@ -26,7 +26,7 @@ class Blackjack < Games
         puts "To return to the main menu please type back"
         back = gets.chomp
             if back == "back"
-               game_menu()
+                return
             end
     end 
     def game

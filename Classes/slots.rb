@@ -27,7 +27,7 @@ class Slots < Games
         puts "See if you Win!"
         back = gets.chomp
             if back == "back"
-               menu()
+               return
             end
     end
     def game()
@@ -35,7 +35,7 @@ class Slots < Games
         reel = {jackpot: 7, loss: 0}
         slots_playing = true
         until !slots_playing and @balance >= 0
-            reel_size = choice.select("Select how many Reels", [4, 8 , 12])
+            reel_size = choice.select("Select how many Reels you want to play with", [4, 8 , 12])
             result = []
             case reel_size
             when 4

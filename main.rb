@@ -1,6 +1,6 @@
 require_relative './modules/menu'
 include Menu
-
+require_relative './classes/errors'
 
 main_heading()
 choice = TTY::Prompt.new
@@ -15,10 +15,31 @@ when "Yes"
 
 when "No"
     puts "Well, then if you are new to our establishment, what would your name be?"
-    name = gets.chomp
+    name_valid = false
+    until name_valid == true
+        begin
+            name = gets.chomp.strip
+            raise EmptyField.new if name.class == NilClass or name = ""
+        rescue EmptyField
+            puts "Please enter something in as your name"
+        else
+            name_valid = true
+        end
+    end
+    puts name
     age_check = TTY::Prompt.new
-    age = age_check.ask("How old are you:", convert: :float) do |q|
+    age_valid = false
+    until age_valid == true
+        begin
+            age = age_check.ask("How old are you:", convert: :float) do |q|
             q.convert(:float, "%{value} is not a valid age entry, please try again")
+            end
+            raise EmptyField.new if age.class == NilClass
+        rescue EmptyField
+            puts "Please Try Again and Enter a Correct Age"
+        else
+            age_valid = true
+        end
     end
     case age < 18
     when true

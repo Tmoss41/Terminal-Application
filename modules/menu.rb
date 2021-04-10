@@ -14,7 +14,7 @@ module Menu
     def input_loop(playing, name, balance)
         while playing
             prompt = TTY::Prompt.new
-            input = prompt.select('Please Select an Option', ["Blackjack".colorize(:red), "Roulette".colorize(:grey), "Slot-Machines".colorize(:yellow), "Poker".colorize(:blue),  
+            input = prompt.select('Please Select an Option', ["Blackjack".colorize(:red), "Roulette".colorize(:grey), "Slot-Machines".colorize(:yellow),  
                                                             "Horse-Racing".colorize(:green), "Statistics".colorize(:orange), "Leave"])
             case input
             when "Blackjack".colorize(:red)
@@ -41,7 +41,6 @@ module Menu
                     slots.game_menu
                     at_table = false
                 end
-            when "Poker".colorize(:blue)
             when "Horse-Racing".colorize(:green)
                 at_table = true
                 horse_racing = HorseRacing.new(balance, name)
@@ -64,8 +63,9 @@ module Menu
                 end
             when "Leave"
                 puts "Have a Wonderful Evening #{name}, would you like to leave your money as credit here? (Yes/No)"
-                save_progress = gets.chomp.downcase
-                if save_progress == "yes"
+                save_progress = prompt.yes?("Do you want to save?")
+                case save_progress
+                when true
                     puts "Are you updating your details or setting up new details? (Type Save or Signup)"
                     update_or_signup = prompt.select('Would you like to Save or Create new details' , ['Save', 'Signup'])
                     case update_or_signup
@@ -74,7 +74,7 @@ module Menu
                     when "Signup"
                         signup(balance)
                     end
-                else
+                when false
                     puts "No worries #{name}, we will not save your information and balance"
                     exit(true)
                 end

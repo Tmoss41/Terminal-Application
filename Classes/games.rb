@@ -1,11 +1,22 @@
-
+require_relative 'errors'
 class Games
     def gamble
+        gamble_valid = false
         place_bet = TTY::Prompt.new
-        gamble = place_bet.ask("How much would you like to bet?:", convert: :float) do |q|
-            q.convert(:float, "%{value} is not a valid bet, plese try again using only numbers")
-            # if q.class == nil
-            #     rescu
+        until gamble_valid == true
+            begin
+                gamble = place_bet.ask("How much would you like to bet?:", convert: :float) do |q|
+                q.convert(:float, "%{value} is not a valid bet, plese try again using only numbers")
+            end
+            raise EmptyField.new if gamble.class == NilClass
+            raise InsufficientFunds.new if @balance - gamble < 0
+            rescue EmptyField
+                puts  "This is a required field, please enter a valid bet"
+            rescue InsufficientFunds
+                puts "You do not have enough money to pay back this bet if you lose, Balance = #{@balance}"
+            else
+                gamble_valid = true
+            end
         end
         return gamble
     end
