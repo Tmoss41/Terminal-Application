@@ -1,4 +1,11 @@
-require_relative 'errors'
+begin
+    require_relative 'errors'
+rescue LoadError
+    puts "There is a Class or Module File Missing, Please Refer To Help Documentation to find a list and file structure of the
+    Application, and pull application from GIT Repo to repair"
+    exit(false)
+end
+
 class Games
     def gamble
         gamble_valid = false

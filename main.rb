@@ -1,8 +1,13 @@
-require_relative './modules/menu'
-include Menu
-require_relative './classes/errors'
-require 'json'
-
+begin
+    require_relative './modules/menu'
+    include Menu
+    require_relative './classes/errors'
+    require 'json'
+rescue LoadError
+    puts "There is a Class or Module File Missing, Please Refer To Help Documentation to find a list and file structure of the
+    Application, and pull application from GIT Repo to repair"
+    exit(false)
+end
 main_heading()
 reveal_secrets = ARGV.include?("reveal")
 new_user_status = ARGV[0] if ARGV[0]
@@ -71,6 +76,9 @@ returning_user = choice.select("Welcome, have you been here before?", ["Yes", "N
 case returning_user
 when "Yes"
     details = login_screen()
+    if details == "back"
+        load("./main.rb")
+    end
     username = details[1]
     balance = details[0][username.to_sym][1]
     case new_user_status

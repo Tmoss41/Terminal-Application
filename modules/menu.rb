@@ -1,4 +1,6 @@
-require_relative '../classes/blackjack'
+
+begin
+    require_relative '../classes/blackjack'
 require_relative '../classes/slots'
 require_relative '../classes/horses'
 require_relative '../classes/user'
@@ -7,7 +9,11 @@ require_relative 'headings'
 require_relative 'login.rb'
 require_relative '../classes/roulette'
 require 'tty-prompt'
-
+rescue LoadError
+    puts "There is a Class or Module File Missing, Please Refer To Help Documentation to find a list and file structure of the
+    Application, and pull application from GIT Repo to repair"
+    exit(false)
+end
 module Menu
     include Headings
     include Login

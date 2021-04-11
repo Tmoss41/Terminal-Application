@@ -9,3 +9,4 @@ class InsufficientFunds < StandardError
         super('Invalid amount of Money in Account')
     end
 end
+

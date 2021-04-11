@@ -8,6 +8,9 @@ module Login
             username = gets.chomp
             puts "Enter your password"
             password = gets.chomp
+            if username == "back" or password = "back"
+                return "back"
+            end
             begin
                 file = File.read('./users.json')
                 user = JSON.parse(file)

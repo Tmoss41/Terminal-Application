@@ -1,4 +1,10 @@
-require_relative "games"
+begin
+    require_relative 'games'
+rescue LoadError
+    puts "There is a Class or Module File Missing, Please Refer To Help Documentation to find a list and file structure of the
+    Application, and pull application from GIT Repo to repair"
+    exit(false)
+end
 # Enter how much you want to gamble
 # Spin the wheel
 # Get the result
