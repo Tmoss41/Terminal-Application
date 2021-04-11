@@ -86,7 +86,7 @@ class Roulette < Games
                     end
                 end
             when "35 to 1"
-                "Enter the number you wish to bet on"
+                puts "Enter the number you wish to bet on"
                 number = gets.to_i
                 won = result == number
             end

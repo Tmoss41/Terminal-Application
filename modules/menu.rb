@@ -15,7 +15,7 @@ module Menu
         while playing
             prompt = TTY::Prompt.new
             input = prompt.select('Please Select an Option', ["Blackjack".colorize(:red), "Roulette".colorize(:grey), "Slot-Machines".colorize(:yellow),  
-                                                            "Horse-Racing".colorize(:green), "Statistics".colorize(:orange), "Leave"])
+                                                            "Horse-Racing".colorize(:green), "Leave"])
             case input
             when "Blackjack".colorize(:red)
                 at_table = true
