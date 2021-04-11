@@ -27,7 +27,7 @@ class HorseRacing < Games
         horse_playing = true
         while horse_playing == true
             selecting = TTY::Prompt.new
-            horses = ['PinkLightning', 'WildCat', 'Eclipse', 'Delphi', 'TheDaringDrunk', 'CrazySisterSeline', 'JackSparrow', 'RunningBull']
+            horses = ['PinkLightning', 'WildCat', 'Eclipse', 'Delphi', 'TheDaringDrunk', 'CrazySisterSeline', 'JackSparrow', 'RunningBull', "RazMaTazz"]
             racers = []
             selector = 0
             4.times{
@@ -42,8 +42,13 @@ class HorseRacing < Games
             winner = racers.sample
             case winner == choice
             when true
-                puts "#{winner} comes thundering over the line, you have won this time"
-                @balance = bet + @balance
+                if choice != "RazMaTazz"
+                    puts "#{winner} comes thundering over the line, you have won this time"
+                    @balance = bet + @balance
+                else
+                    puts "#{winner} comes in last, better luck next time!"
+                    @balance = @balance - bet
+                end
             when false
                 puts "#{winner} comes in first, better luck next time!"
                 @balance = @balance - bet
