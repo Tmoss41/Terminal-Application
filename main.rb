@@ -4,11 +4,45 @@ require_relative './classes/errors'
 require 'json'
 
 main_heading()
-
+reveal_secrets = ARGV.include?("reveal")
 new_user_status = ARGV[0] if ARGV[0]
 retrieve_users = ARGV.include?("retrieve")
 wants_rules = ARGV.include?("rules")
 ARGV.clear
+case reveal_stats
+when true
+    puts "So you want to see how rigged this game is? Alright then
+
+        Blackjack Game:
+         The Blackjack Game is cheating you in a very simple way
+         The Selection of Cards for players is [1,2,3,4,5,6,7,8,9,10,10,10,10]
+         and each value is removed reducing your available options
+         The House Selection of Cards is [8,9,10,1,7]
+
+        Roulette Game:
+         The Roulette Game Lets you pick odds, however Even only returns your bets,
+         2 to 1, is already low and 35 to 1 is not even worth looking at. To make money it is best to go 2 to 1
+         This should technically give you a third of a chance to get something, which seems alright, 
+         Except this app shuffles through different wheels that are missing numbers :) lowering chances immensely
+
+        Slot Machines:
+         Slot Machines have several Reels, the highest probability one, is the 4 Reel Slot which only returns Even. \
+         As you get higher in reel size, so does the return, but the possible combinations increases immensely
+         For example: 
+         With 4 Reels with the option of Win or Lose, the possibly combinations equal to 16
+         With 8 Reels that increases to 256 combinations
+         With 12 Reels it increase to 4096 combinations. For a bet return of 12 to 1? No thank you
+         This is the most Rigged Game i made.
+
+         Horses: 
+         I mean, it's horses, everyone knows not to bet on the Pony's. 
+         But Specifically, never bet on Razmataz, you will lose your bet. EVERY SINGLE TIME
+         
+         Welp thats the rigged stats of this game, if you want to change it, you can go into the code and change it yourself
+         Or use Cheat Codes/Commandline Arguments and just add more money to your account
+         Whatever Works"
+    exit(true)
+end
 case retrieve_users 
 when true
     admin_password = TTY::Prompt.new
