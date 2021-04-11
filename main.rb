@@ -9,7 +9,7 @@ new_user_status = ARGV[0] if ARGV[0]
 retrieve_users = ARGV.include?("retrieve")
 wants_rules = ARGV.include?("rules")
 ARGV.clear
-case reveal_stats
+case reveal_secrets
 when true
     puts "So you want to see how rigged this game is? Alright then
 
