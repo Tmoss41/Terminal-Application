@@ -48,6 +48,8 @@ when "Yes"
         balance = 250
     when "maniac"
         balance = 100
+    else
+        balance = 500
     end
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
     in_the_casino = true
@@ -95,6 +97,8 @@ when "No"
         balance = 250
     when "maniac"
         balance = 100
+    else
+        balance = 500
     end
     puts "Balance : $#{balance}"
     puts "At the Moss Casino, we have a variety of areas that you can gamble at"
