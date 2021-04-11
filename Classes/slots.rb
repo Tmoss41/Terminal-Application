@@ -39,10 +39,13 @@ class Slots < Games
             result = []
             case reel_size
             when 4
+                bet_multiplier = 0
                 4.times{result.push(reel.values.sample)}
             when 8
+                bet_multiplier = 2
                 8.times{result.push(reel.values.sample)}
             when 12
+                bet_multiplier = 3
                 12.times{result.push(reel.values.sample)}
             end
             bet = gamble()
@@ -54,7 +57,7 @@ class Slots < Games
             case won
             when true
                 puts "Ding Ding Ding, Jackpot"
-                @balance = (3 * bet)+ @balance
+                @balance = (3 * bet * bet_multiplier)+ @balance
                 loser = false
                 @limit = @limit - (bet * 3)
             end
